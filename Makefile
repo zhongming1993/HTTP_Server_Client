@@ -7,10 +7,10 @@ CLASSES=
 all: web-server web-client
 
 web-server: $(CLASSES)
-	$(CXX) -o $@ $^ $(CXXFLAGS) $@.cpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $@.cpp http_message.cpp
 
 web-client: $(CLASSES)
-	$(CXX) -o $@ $^ $(CXXFLAGS) $@.cpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $@.cpp http_message.cpp
 
 clean:
 	rm -rf *.o *~ *.gch *.swp *.dSYM web-server web-client *.tar.gz

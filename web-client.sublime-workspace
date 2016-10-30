@@ -1,0 +1,239 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"my",
+				"mysql_close"
+			],
+			[
+				"fi",
+				"firstname"
+			],
+			[
+				"max",
+				"maxlength	Attr"
+			],
+			[
+				"Movie",
+				"MovieActor"
+			],
+			[
+				"Mo",
+				"Movie"
+			],
+			[
+				"Movi",
+				"MovieActor"
+			],
+			[
+				"c",
+				"CREATE"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/mingzhong/Desktop/lenet_train_p4.prototxt",
+		"/Users/mingzhong/Desktop/lenet_train_p2.prototxt",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/Project1_B_LiangYuan/Page_B1.php",
+		"/Users/mingzhong/Desktop/004539261_404593326 3/queries.sql",
+		"/Users/mingzhong/Desktop/cs143/004539261_404593326/queries.sql",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/queries.sql",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/004539261_404593326/queries.sql",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/004539261_404593326/query.php",
+		"/Users/mingzhong/Desktop/004539261_404593326 2/query.php",
+		"/Users/mingzhong/Desktop/CS143_P2/cs143_spark_hw/sql/core/src/main/scala/org/apache/spark/sql/execution/CS143Utils.scala",
+		"/Users/mingzhong/Desktop/CS143_P2/cs143_spark_hw/sql/core/src/main/scala/org/apache/spark/sql/execution/basicOperators.scala",
+		"/Users/mingzhong/Desktop/CS143_P2/README",
+		"/Users/mingzhong/Desktop/CS143_P2/cs143_spark_hw/sql/core/src/main/scala/org/apache/spark/sql/execution/DiskHashedRelation.scala",
+		"/Users/mingzhong/Downloads/cs143-winter16-master/lab3/sql/core/src/test/scala/org/apache/spark/sql/execution/DiskHashedRelationSuite.scala",
+		"/Users/mingzhong/Downloads/cs143-winter16-master/lab3/sql/core/src/test/scala/org/apache/spark/sql/execution/DiskPartitionSuite.scala",
+		"/Users/mingzhong/Desktop/404593326/cs143_spark_hw/sql/core/src/main/scala/org/apache/spark/sql/execution/basicOperators.scala",
+		"/Users/mingzhong/Desktop/404593326/cs143_spark_hw/sql/core/src/main/scala/org/apache/spark/sql/execution/DiskHashedRelation.scala",
+		"/Users/mingzhong/Downloads/cs143-winter16-master/lab3/sql/core/src/test/scala/org/apache/spark/sql/execution/ProjectSuite.scala",
+		"/Users/mingzhong/Downloads/cs143-winter16-master/lab3/sql/core/src/main/scala/org/apache/spark/sql/execution/DiskHashedRelation.scala",
+		"/Users/mingzhong/Desktop/EE232_P2/director_score.txt",
+		"/Users/mingzhong/Desktop/EE232_P2/movie_rating.txt",
+		"/Users/mingzhong/Desktop/EE232_P2/movie_genre.txt",
+		"/Users/mingzhong/Desktop/EE232_P2/ratings.list",
+		"/Users/mingzhong/Desktop/EE232_P2/project_2_data/actress_movies.txt",
+		"/Users/mingzhong/Downloads/cs143-winter16-master/lab3/sql/core/src/main/scala/org/apache/spark/sql/UdfRegistration.scala",
+		"/Users/mingzhong/Desktop/test.scala",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/CS143_P1B/main.html",
+		"/Users/mingzhong/Desktop/CS143_P1B/load.sql",
+		"/Users/mingzhong/Desktop/CS143_P1B/queries.sql",
+		"/Users/mingzhong/Desktop/CS143_P1B/create.sql",
+		"/Users/mingzhong/Desktop/Project1_B_LiangYuan/Page_B2.php",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/Project1_B_LiangYuan/Page_B2.php",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/Project1_B_LiangYuan/Page_L3.php",
+		"/Users/mingzhong/Desktop/CS143_P1B/main.html",
+		"/Users/mingzhong/Desktop/CS32_P1B/<!DOCTYPE HTML>",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/query_zm.php",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/load.sql",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/violate.sql",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/create.sql",
+		"/Users/mingzhong/Desktop/create.sql",
+		"/Users/mingzhong/Desktop/Virtual Box Share Folder/drop.sql"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"The Return of the King (2003)",
+			"The Return of the King(2003)",
+			"The Return of the King (2003)",
+			"9.9",
+			"GET"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"POST"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "web-client.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
