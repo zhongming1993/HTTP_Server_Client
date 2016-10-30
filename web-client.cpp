@@ -183,8 +183,8 @@ int main(int argc, char *argv[])
         total_data.insert(total_data.end(), received_data.begin(), received_data.end());
     }
 
-    string data_string(total_data.begin(), total_data.end());
-    cout << "received total data: " << data_string << endl;
+    // string data_string(total_data.begin(), total_data.end());
+    // cout << "received total data: " << data_string << endl;
 
     string file_name = dir.substr(1);
     ofstream downloaded_file(file_name, ios::out | ios::binary);

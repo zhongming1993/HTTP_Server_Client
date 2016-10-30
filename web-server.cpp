@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <netdb.h>
+#include <thread>
 
 #include <iostream>
 #include <sstream>
@@ -45,6 +46,53 @@ bool address_look_up(string host_name, string port, string& host_address)
     return true;
 }
 
+void task(int id, int clientSockfd, string dir)
+{
+    char buf[1000] = {0};
+
+    memset(buf, '\0', sizeof(buf));
+
+    if (recv(clientSockfd, buf, 1000, 0) == -1) {
+        perror("recv");
+        return;
+    }
+
+    vector<char> wire(buf, buf + strlen(buf));
+    string wired_string(wire.begin(), wire.end());  
+
+    http_request my_request;
+    my_request.decode(wire);
+
+    cout << "received request's method: " << my_request.get_method() << endl;
+    cout << "received request's url: " << my_request.get_url() << endl;
+
+    http_response my_response;
+
+    string file_name = dir + my_request.get_url();
+
+    cout << "file_name" << file_name << endl;
+
+    ifstream file_stream(file_name, ios::in|ios::binary);
+    if (!file_stream)
+    {
+        my_response.set_status_code("404");
+        cout << "open not successfully " << endl;
+    }
+    else
+    {
+        my_response.set_status_code("200");
+        vector<char> data_vec((istreambuf_iterator<char>(file_stream)), istreambuf_iterator<char>());
+        my_response.add_data(data_vec);
+    }
+
+    wire = my_response.encode();
+
+    if (send(clientSockfd, &wire[0], wire.size(), 0) == -1) {
+        perror("send");
+        return;
+    }
+    close(clientSockfd);
+}
 
 int main(int argc, char *argv[])
 {
@@ -103,68 +151,28 @@ int main(int argc, char *argv[])
     // accept a new connection, clientSockfd is the new socket for the connection
     struct sockaddr_in clientAddr;
     socklen_t clientAddrSize = sizeof(clientAddr);
-    int clientSockfd = accept(sockfd, (struct sockaddr*)&clientAddr, &clientAddrSize);
 
-    if (clientSockfd == -1) {
-        perror("accept");
-        return 4;
-    }
+    int thread_id = 0;
 
-    // get the IP and port of the client
-    char ipstr[INET_ADDRSTRLEN] = {'\0'};
-    inet_ntop(clientAddr.sin_family, &clientAddr.sin_addr, ipstr, sizeof(ipstr));
-    std::cout << "Accept a connection from: " << ipstr << ":" << ntohs(clientAddr.sin_port) << std::endl;
-    //
-
-    // read/write data from/into the connection
-    char buf[1000] = {0};
-
-    memset(buf, '\0', sizeof(buf));
-
-    if (recv(clientSockfd, buf, 1000, 0) == -1) {
-        perror("recv");
-        return 5;
-    }
-
-        // cout << "buf's content " << buf << " with size: " << strlen(buf) << endl; 
-    vector<char> wire(buf, buf + strlen(buf));
-    string wired_string(wire.begin(), wire.end());
-        // cout << "wire's content " << wired_string << " with size: " << wire.size() << endl;    
-
-    http_request my_request;
-    my_request.decode(wire);
-
-    cout << "received request's method: " << my_request.get_method() << endl;
-    cout << "received request's url: " << my_request.get_url() << endl;
-
-    http_response my_response;
-
-    string file_name = dir + my_request.get_url();
-
-    cout << "file_name" << file_name << endl;
-
-    ifstream file_stream(file_name, ios::in|ios::binary);
-    if (!file_stream)
+    while (true)
     {
-        my_response.set_status_code("404");
-        cout << "open not successfully " << endl;
+        int clientSockfd = accept(sockfd, (struct sockaddr*)&clientAddr, &clientAddrSize);
+
+        if (clientSockfd == -1) {
+            perror("accept");
+            continue;
+        }
+
+        // get the IP and port of the client
+        char ipstr[INET_ADDRSTRLEN] = {'\0'};
+        inet_ntop(clientAddr.sin_family, &clientAddr.sin_addr, ipstr, sizeof(ipstr));
+        std::cout << "Accept a connection from: " << ipstr << ":" << ntohs(clientAddr.sin_port) << std::endl;
+        
+        thread t;
+        t = thread(task, thread_id, clientSockfd, dir);
+        thread_id++;
+        t.join();
     }
-    else
-    {
-        my_response.set_status_code("200");
-        vector<char> data_vec((istreambuf_iterator<char>(file_stream)), istreambuf_iterator<char>());
-        my_response.add_data(data_vec);
-    }
-
-    wire = my_response.encode();
-
-    if (send(clientSockfd, &wire[0], wire.size(), 0) == -1) {
-        perror("send");
-        return 6;
-    }
-
-
-    close(clientSockfd);
 
     return 0;
 }
