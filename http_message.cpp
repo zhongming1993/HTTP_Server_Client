@@ -63,7 +63,6 @@ vector<char> http_request::encode()
 		default:
 			encode_string += "1.0\r\n";
 	}
-
 	encode_string = encode_string + "method: " + get_method() + "\r\n";
 	encode_string = encode_string + "url: " + get_url() + "\r\n";
 	vector<char> result(encode_string.begin(), encode_string.end());
@@ -132,16 +131,6 @@ void http_response::set_status_code(string my_status_code)
 	status_code = my_status_code;
 }
 
-// void http_response::hton_status_code()
-// {
-// 	status_code = htonl(status_code);
-// }
-
-// void http_response::ntoh_staus_code()
-// {
-// 	status_code = ntohl(status_code);
-// }
-
 vector<char> http_response::get_data()
 {
 	return data;
@@ -206,7 +195,7 @@ void http_response::decode(vector<char> wire)
 
 	element.clear();
 	index += 2;
-	while (wire[index] != '\r')
+	while (index < (int)wire.size() && wire[index] != '\r')
 	{
 		element += wire[index];
 		index++;

@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <thread>
-
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -30,8 +29,6 @@ bool address_look_up(string host_name, string port, string& host_address)
         return false;
     }
 
-    std::cout << "IP addresses for " << host_name << ": " << std::endl;
-
     for(struct addrinfo* p = res; p != 0; p = p->ai_next) 
     {
         // convert address to IPv4 address
@@ -39,7 +36,6 @@ bool address_look_up(string host_name, string port, string& host_address)
         // convert the IP to a string and print it:
         char ipstr[INET_ADDRSTRLEN] = {'\0'};
         inet_ntop(p->ai_family, &(ipv4->sin_addr), ipstr, sizeof(ipstr));
-        std::cout << "  " << ipstr << std::endl;
         host_address = ipstr;
     }
     freeaddrinfo(res); 
@@ -49,7 +45,6 @@ bool address_look_up(string host_name, string port, string& host_address)
 void task(int id, int clientSockfd, string dir)
 {
     char buf[1000] = {0};
-
     memset(buf, '\0', sizeof(buf));
 
     if (recv(clientSockfd, buf, 1000, 0) == -1) {
@@ -57,26 +52,20 @@ void task(int id, int clientSockfd, string dir)
         return;
     }
 
+    cout << "http request received " << endl;
     vector<char> wire(buf, buf + strlen(buf));
     string wired_string(wire.begin(), wire.end());  
-
     http_request my_request;
     my_request.decode(wire);
 
-    cout << "received request's method: " << my_request.get_method() << endl;
-    cout << "received request's url: " << my_request.get_url() << endl;
-
     http_response my_response;
-
     string file_name = dir + my_request.get_url();
-
-    cout << "file_name" << file_name << endl;
 
     ifstream file_stream(file_name, ios::in|ios::binary);
     if (!file_stream)
     {
         my_response.set_status_code("404");
-        cout << "open not successfully " << endl;
+        cerr << "file not found " << endl;
     }
     else
     {
@@ -86,7 +75,7 @@ void task(int id, int clientSockfd, string dir)
     }
 
     wire = my_response.encode();
-
+    cout << "sending response to client with file: " << file_name << endl;
     if (send(clientSockfd, &wire[0], wire.size(), 0) == -1) {
         perror("send");
         return;
@@ -96,7 +85,7 @@ void task(int id, int clientSockfd, string dir)
 
 int main(int argc, char *argv[])
 {
-    // set the argument of the server
+    // set the default argument of the server and parse the argument
     string host_name = "localhost";
     string host_address;
     int port = 4000;
@@ -108,8 +97,6 @@ int main(int argc, char *argv[])
         port = stoi(argv[2]);
     if (argc >= 4)
         dir = argv[3];
-
-    cout << "information about server:    host_name = " << host_name << " port = " << port << " dir = " << dir << endl;
 
     // create a socket using TCP IP
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -127,23 +114,22 @@ int main(int argc, char *argv[])
         return 3;
     }
 
-    // bind address to socket
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
-    // define the port of the server, short, network byte order
     addr.sin_port = htons(port);         
-    // define the IP address of the server
     addr.sin_addr.s_addr = inet_addr(host_address.c_str());
     memset(addr.sin_zero, '\0', sizeof(addr.sin_zero));
 
     // bind the server's socket to the address and port
-    if (bind(sockfd, (struct sockaddr*)&addr, sizeof(addr)) == -1) {
+    if (bind(sockfd, (struct sockaddr*)&addr, sizeof(addr)) == -1) 
+    {
         perror("bind");
         return 2;
     }
 
     // set socket to listen status
-    if (listen(sockfd, 1) == -1) {
+    if (listen(sockfd, 1) == -1) 
+    {
         perror("listen");
         return 3;
     }
@@ -158,21 +144,20 @@ int main(int argc, char *argv[])
     {
         int clientSockfd = accept(sockfd, (struct sockaddr*)&clientAddr, &clientAddrSize);
 
-        if (clientSockfd == -1) {
+        if (clientSockfd == -1) 
+        {
             perror("accept");
             continue;
         }
 
-        // get the IP and port of the client
+        // get the IP and port of the client and print it
         char ipstr[INET_ADDRSTRLEN] = {'\0'};
         inet_ntop(clientAddr.sin_family, &clientAddr.sin_addr, ipstr, sizeof(ipstr));
         std::cout << "Accept a connection from: " << ipstr << ":" << ntohs(clientAddr.sin_port) << std::endl;
         
-        thread t;
-        t = thread(task, thread_id, clientSockfd, dir);
+        // use multithread, use a seperate thread for each connection
+        thread(task, thread_id, clientSockfd, dir).detach();
         thread_id++;
-        t.join();
     }
-
     return 0;
 }
